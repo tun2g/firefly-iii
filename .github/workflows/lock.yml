@@ -1,0 +1,19 @@
+name: 'Issues - Lock old issues'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  lock:
+    permissions:
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: JC5/lock-threads@main
+        with:
+          github-token: ${{ github.token }}
+          issue-inactive-days: 90
+          pr-inactive-days: 90
